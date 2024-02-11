@@ -3,49 +3,50 @@ import React from "react";
 const Navbar = () => {
   const navItems = (
     <>
-      <li className="">
+      <li className="mb-2">
         <a className="text-neutral">Home</a>
       </li>
-      <li tabIndex={0}>
-        <details>
-          <summary className="text-neutral">Category</summary>
-          <ul className="p-2 text-neutral">
-            <li>
-              <a>All</a>
-            </li>
-            <li>
-              <a>Clothing</a>
-            </li>
-            <li>
-              <a>Accessories</a>
-            </li>
-            <li>
-              <a>Gadget</a>
-            </li>
-            <li>
-              <a>Swag</a>
-            </li>
-          </ul>
-        </details>
+      <li tabIndex={0} className="mb-4">
+  <details>
+    <summary className="text-neutral">Category</summary>
+    <ul className="p-2 text-neutral">
+      <li>
+        <a>All</a>
       </li>
-      <li tabIndex={0}>
-        <details>
-          <summary className="text-neutral">Service</summary>
-          <ul className="p-2 text-neutral">
-            <li>
-              <a>Order Online</a>
-            </li>
-            <li>
-              <a>Order Tracking</a>
-            </li>
-          </ul>
-        </details>
+      <li>
+        <a>Clothing</a>
       </li>
+      <li>
+        <a>Accessories</a>
+      </li>
+      <li>
+        <a>Gadget</a>
+      </li>
+      <li>
+        <a>Swag</a>
+      </li>
+    </ul>
+  </details>
+</li>
+<li tabIndex={0} className="mb-4">
+  <details>
+    <summary className="text-neutral">Service</summary>
+    <ul className="p-2 text-neutral">
+      <li>
+        <a>Order Online</a>
+      </li>
+      <li>
+        <a>Order Tracking</a>
+      </li>
+    </ul>
+  </details>
+</li>
       <li>
         <a className="text-neutral">Promotion</a>
       </li>
     </>
   );
+
   return (
     <header className="max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out">
       <div>
@@ -89,7 +90,7 @@ const Navbar = () => {
             <ul className="menu menu-horizontal px-1 ">{navItems}</ul>
           </div>
           <div className="navbar-end">
-            <button className="btn btn-ghost btn-circle hidden lg:flex mr-3 items-center justify-center text-black">
+          <button className="btn btn-ghost btn-circle hidden lg:flex mr-3 items-center justify-center text-black">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -148,4 +149,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-7;

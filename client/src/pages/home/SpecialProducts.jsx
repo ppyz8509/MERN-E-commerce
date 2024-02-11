@@ -4,36 +4,42 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Card from "../../components/Card";
 
-const SampleNextArrow = (props) =>{
-  const {className, style, onClick} = props;
-  return(
-    <div className={className}
-    style={{...style, display : "block" , background: "red"}}
-    onClick={onClick}>
- NEXT
+
+const SampleNextArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "red" }}
+      onclick={onClick}
+    >
+      NEXT
     </div>
-  )
-}
-const SamplePrevArrow = (props) =>{
-  const {className, style, onClick} = props;
-  return(
-    <div className={className}
-    style={{...style, display : "block" , background: "green"}}
-    onClick={onClick}>
- BACK
+  );
+};
+
+const SamplePrevArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "red" }}
+      onclick={onClick}
+    >
+      BACK
     </div>
-  )
-}
+  );
+};
 
 const SpecialProducts = () => {
-  const [products, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const slider = useRef(null);
   useEffect(() => {
     fetch("/product.json")
       .then((res) => res.json())
       .then((data) => {
         const specials = data.filter((item) => item.category === "popular");
-        setProduct(specials);
+        setProducts(specials);
       });
   }, []);
   const settings = {
@@ -79,8 +85,7 @@ const SpecialProducts = () => {
         <p className="subtitle">Special Item</p>
         <h2 className="title">Standout Items from Our Product</h2>
       </div>
-      
-      <div className="md:absolute right-3 top-8 mb-10 md:24">
+      <div className="md:absolute right-3 top-8 mb-10 md:mr-24">
         <button
           className="btn bg-red p-2 rounded-full ml-5 text-white"
           onClick={() => slider?.current?.slickPrev()}
