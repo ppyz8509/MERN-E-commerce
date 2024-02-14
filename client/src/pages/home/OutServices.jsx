@@ -34,8 +34,10 @@ const OurServices = () => {
       <div className="flex flex-col md:flex-row item-center justify-between gap-12">
         <div className="md:w-1/2">
           <div className="text-left md:w-4/5">
+            
             <p className="subtitle">Our story & Service</p>
             <h2 className="title">Our Journey and Services</h2>
+           
             <p className="my-5 text-secondary leading-[30px]">
               We Provide a curated selection of high-quality tech-inspired
               products,backed by fast shipping and exceptional customer service.
