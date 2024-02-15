@@ -3,7 +3,7 @@
       "_id": "1",
       "name": "Code Mug",
       "description": "A stylish mug with a code snippet",
-      "price": 15,
+      "price": 499.00,
       "image": "https://source.unsplash.com/random/800x600/?code",
       "category": "accessories"
     },
@@ -11,7 +11,7 @@
       "_id": "2",
       "name": "Developer's Keyboard Stickers",
       "description": "Customizable keyboard stickers for developers",
-      "price": 10,
+      "price": 150.0,
       "image": "https://source.unsplash.com/random/800x600/?keyboard",
       "category": "accessories"
     },
@@ -19,7 +19,7 @@
       "_id": "3",
       "name": "Bug Bounty T-Shirt",
       "description": "Show off your bug bounty achievements with this cool t-shirt",
-      "price": 25,
+      "price": 399.00,
       "image": "https://source.unsplash.com/random/800x600/?tshirt",
       "category": "clothing"
     },
@@ -27,7 +27,7 @@
       "_id": "4",
       "name": "Binary Code Wall Clock",
       "description": "A unique wall clock displaying time in binary",
-      "price": 30,
+      "price": 300.00,
       "image": "https://source.unsplash.com/random/800x600/?binary",
       "category": "gadget"
     },
@@ -35,7 +35,7 @@
       "_id": "5",
       "name": "Git Commit Coasters",
       "description": "Set of coasters with funny git commit messages",
-      "price": 12,
+      "price": 100.00,
       "image": "https://source.unsplash.com/random/800x600/?coasters",
       "category": "swag"
     },
@@ -43,7 +43,7 @@
       "_id": "6",
       "name": "Code Syntax Poster",
       "description": "Decorate your workspace with this syntax-highlighted code poster",
-      "price": 18,
+      "price": 180.00,
       "image": "https://source.unsplash.com/random/800x600/?poster",
       "category": "accessories"
     },
@@ -51,7 +51,7 @@
       "_id": "7",
       "name": "DevOps Water Bottle",
       "description": "Stay hydrated with this DevOps-themed water bottle",
-      "price": 20,
+      "price": 200.00,
       "image": "https://source.unsplash.com/random/800x600/?waterbottle",
       "category": "accessories"
     },
@@ -59,7 +59,7 @@
       "_id": "8",
       "name": "Agile Planning Poker Cards",
       "description": "Enhance your agile planning sessions with these poker cards",
-      "price": 8,
+      "price": 490.00,
       "image": "https://source.unsplash.com/random/800x600/?cards",
       "category": "gadget"
     },
@@ -67,7 +67,7 @@
       "_id": "9",
       "name": "Error 404 Mousepad",
       "description": "A mousepad with a humorous 404 error design",
-      "price": 14,
+      "price": 650.00,
       "image": "https://source.unsplash.com/random/800x600/?mousepad",
       "category": "accessories"
     },
@@ -75,7 +75,7 @@
       "_id": "10",
       "name": "API Blueprint Notebook",
       "description": "Take notes in this stylish notebook featuring API blueprints",
-      "price": 22,
+      "price": 790.00,
       "image": "https://source.unsplash.com/random/800x600/?notebook",
       "category": "accessories"
     },
@@ -83,7 +83,7 @@
       "_id": "11",
       "name": "Tech Geek Socks",
       "description": "Fun and comfortable socks with tech-related patterns",
-      "price": 9,
+      "price": 450.00,
       "image": "https://source.unsplash.com/random/800x600/?socks",
       "category": "clothing"
     },
@@ -91,7 +91,7 @@
       "_id": "12",
       "name": "Scrum Master Plush Toy",
       "description": "Cute plush toy representing the Scrum Master role",
-      "price": 16,
+      "price": 699.00,
       "image": "https://source.unsplash.com/random/800x600/?plush",
       "category": "swag"
     },
@@ -99,7 +99,7 @@
       "_id": "13",
       "name": "Programming Puzzle Set",
       "description": "Challenge your coding skills with this puzzle set",
-      "price": 28,
+      "price": 560.00,
       "image": "https://source.unsplash.com/random/800x600/?puzzle",
       "category": "gadget"
     },
@@ -107,7 +107,7 @@
       "_id": "14",
       "name": "Code Syntax Tie",
       "description": "Elegant tie featuring various code syntax patterns",
-      "price": 35,
+      "price": 450.00,
       "image": "https://source.unsplash.com/random/800x600/?tie",
       "category": "clothing"
     },
@@ -115,7 +115,7 @@
       "_id": "15",
       "name": "Tech Backpack",
       "description": "Stylish backpack designed for tech enthusiasts",
-      "price": 40,
+      "price": 400.00,
       "image": "https://source.unsplash.com/random/800x600/?backpack",
       "category": "accessories"
     },
@@ -123,7 +123,7 @@
       "_id": "16",
       "name": "Popula Mug",
       "description": "A trendy mug with a unique design",
-      "price": 18,
+      "price": 740.00,
       "image": "https://source.unsplash.com/random/800x600/?popula",
       "category": "popular"
     },
@@ -131,7 +131,7 @@
       "_id": "17",
       "name": "Popula Stickers",
       "description": "Cool stickers with popular designs",
-      "price": 12,
+      "price": 850.00,
       "image": "https://source.unsplash.com/random/800x600/?popula-stickers",
       "category": "popular"
     },
@@ -139,7 +139,7 @@
       "_id": "18",
       "name": "Popula Hat",
       "description": "A stylish hat featuring the Popula brand",
-      "price": 24,
+      "price": 240.00,
       "image": "https://source.unsplash.com/random/800x600/?popula-hat",
       "category": "popular"
     },
@@ -147,7 +147,7 @@
       "_id": "19",
       "name": "Popula Tech Gadgets",
       "description": "Tech gadgets with the Popula touch",
-      "price": 32,
+      "price": 320.00,
       "image": "https://source.unsplash.com/random/800x600/?popula-tech",
       "category": "popular"
     },
@@ -155,7 +155,7 @@
       "_id": "20",
       "name": "Popula Swag Pack",
       "description": "A bundle of swag items from Popula",
-      "price": 50,
+      "price": 500.00,
       "image": "https://source.unsplash.com/random/800x600/?popula-swag",
       "category": "popular"
     },
@@ -163,7 +163,7 @@
       "_id": "21",
       "name": "Popula Art Poster",
       "description": "Artistic poster with the Popula vibe",
-      "price": 28,
+      "price": 280.00,
       "image": "https://source.unsplash.com/random/800x600/?popula-poster",
       "category": "popular"
     },
@@ -171,7 +171,7 @@
       "_id": "22",
       "name": "Popula Tech Socks",
       "description": "Comfy socks with a tech twist from Popula",
-      "price": 15,
+      "price": 150.00,
       "image": "https://source.unsplash.com/random/800x600/?popula-socks",
       "category": "popular"
     },
@@ -179,7 +179,7 @@
       "_id": "23",
       "name": "Popula Gadget Organizer",
       "description": "Organize your gadgets with this Popula organizer",
-      "price": 22,
+      "price": 220.00,
       "image": "https://source.unsplash.com/random/800x600/?popula-organizer",
       "category": "popular"
     }

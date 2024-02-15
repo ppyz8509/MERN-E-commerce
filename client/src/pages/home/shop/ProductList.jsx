@@ -52,17 +52,16 @@ const ProductList = () => {
         sortedItems.sort((a, b) => b.price - a.price);
         break;
       default:
-        sortedItems.sort((a, b) => a.price - b.price);
         break;
     }
     setFilteredItems(sortedItems);
     setCurrentPage(1);
   };
 
-  const indexOfLastItem = itemPerPages * currentPage ;
+  const indexOfLastItem = itemPerPages * currentPage;
   const indexOfFirstItem = indexOfLastItem - itemPerPages;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
-  
+
   return (
     <div>
       {/** Product List Banner */}
@@ -132,42 +131,24 @@ const ProductList = () => {
       </div>
 
       {/* Pagination */}
-      {/* 
-      {Array.from({
-    length: Math.ceil(filteredItems.length / itemPerPage),
-  }).map((_, index) => (
-    <button
-      key={index}
-      className={`mx-1 px-3 py-1 rounded-full ${
-        currentPage === index ? "bg-red text-white" : "bg-gray-200"
-      }`}
-      onClick={() => {
-        paginate(index);
-      }}
-    >
-      {index + 1}
-    </button>
-  ))}
-      
-      
-      
-      */}
-      <div className="flex justify-center  my-8 items-center space-x-2 gap-2">
-      {Array.from({
-    length: Math.ceil(filteredItems.length / itemPerPages),
-  }).map((_, index) => (
-    <button
-      key={index}
-      className={`mx-1 px-3 py-1 rounded-full ${
-        currentPage === index ? "bg-red text-white" : "bg-gray-200"
-      }`}
-      onClick={() => {
-        paginate(index);
-      }}
-    >
-      {index + 1}
-    </button>
-  ))}
+      <div className="flex justify-center items-center my-8 flex-wrap gap-2">
+        {Array.from({
+          length: Math.ceil(filteredItems.length / itemPerPages),
+        }).map((_, index) => {
+          return (
+            <button
+              key={index}
+              className={`mx-1 px-3 py-1 rounded-full ${
+                currentPage === index + 1 ? "bg-red text-white" : "bg-gray-200"
+              }`}
+              onClick={() => {
+                setCurrentPage(index + 1);
+              }}
+            >
+              {index + 1}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
