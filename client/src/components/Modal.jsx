@@ -1,42 +1,46 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { FaGithub } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
 import { useForm } from "react-hook-form"
 import { AuthContext } from "../context/AuthProvider";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 
 const Modal = ({ name }) => {
-    const {login} = useContext(AuthContext)
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-      } = useForm()
-     
-      const onSubmit = (data) => {
-        login(data.email , data.password).then((resp)=>{
-            const user = resp.user
-            console.log(user);
-            alert("ล็อคอินเสร็จสิ้น")
-        }).catch((err)=>{
-            console.log(err);
-        })
-      }
-    const googlesignUp = () => {
-       sigUpWithGoogle()
-       .then((result) => {
+  const { login, signUpWithGoogle } = useContext(AuthContext);
+  const navigate = useNavigate(); // เพิ่ม useNavigate
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    login(data.email, data.password)
+      .then((result) => {
         const user = result.user;
-        console.log(user)
-        alert("google sign up Successfully")
+        // console.log(user);
+        alert("Login Successful");
+        document.getElementById(name).close();
+        navigate("/"); // เปลี่ยนเส้นทางไปหน้าแรก
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const googlesignUp = () => {
+    signUpWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        alert("google sign up Successfully");
         document.getElementById("login").close();
-       }) 
-       .catch((eror) => {
-        console.log(error)
-       })
-    }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
       <dialog
@@ -85,7 +89,7 @@ const Modal = ({ name }) => {
               </div>
               <p className="text-center my-2">
                 Don't have an account?{" "}
-                <Link to={"/singup"} className="underline text-red ml-1">
+                <Link to={"/signup"} className="underline text-red ml-1">
                   Sign Up Now
                 </Link>
               </p>
