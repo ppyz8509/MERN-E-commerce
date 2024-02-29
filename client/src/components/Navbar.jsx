@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, } from "react";
 import Modal from "./Modal";
 import { AuthContext } from "../context/AuthProvider";
 import Profile from "./Profile";

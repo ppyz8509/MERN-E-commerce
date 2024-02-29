@@ -8,7 +8,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
-  signOut
+  signOut,
+  ///UpdateProfile,
 } from "firebase/auth";
 const AuthProvider = ({ children }) => {
   // Initialize Firebase Authentication and get a reference to the service
@@ -19,7 +20,7 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const updateUserProfile = ({ name ,photoURL}) => {
-    return updateUserProfile(auth.currentUser, {
+    return UpdateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photoURL,
     })

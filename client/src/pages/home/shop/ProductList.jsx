@@ -24,12 +24,17 @@ const ProductList = () => {
     };
     fetchData();
   }, []);
-
   const filterItems = (category) => {
-    const filtered =
-      category === "all"
-        ? products
-        : products.filter((item) => item.category === category);
+    let filtered;
+    if (category === "bangsean") {
+      filtered = products.filter((item) => item.category === "bangsean");
+    } else {
+      filtered =
+        category === "all"
+          ? products
+          : products.filter((item) => item.category === category);
+    }
+
     handleSortChange(sortOptions, filtered);
     setSelectedCategory(category);
     setCurrentPage(1);
@@ -51,7 +56,13 @@ const ProductList = () => {
       case "high-to-low":
         sortedItems.sort((a, b) => b.price - a.price);
         break;
+      case "bangsean":
+        sortedItems = sortedItems.filter(
+          (item) => item.category === "bangsean"
+        );
+        break;
       default:
+        sortedItems.sort((a, b) => a.name.localeCompare(b.name));
         break;
     }
     setFilteredItems(sortedItems);
@@ -61,7 +72,7 @@ const ProductList = () => {
   const indexOfLastItem = itemPerPages * currentPage;
   const indexOfFirstItem = indexOfLastItem - itemPerPages;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
-
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div>
       {/** Product List Banner */}
@@ -90,17 +101,19 @@ const ProductList = () => {
         <div className="flex flex-col md:flex-row flex-warp md:justify-between items-center space-y-3 mb-8">
           {/* filter */}
           <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap">
-            {categories.map((category, index) => (
-              <button
-                key={index}
-                onClick={() => filterItems(category)}
-                className={`${
-                  selectedCategory === category ? "active" : ""
-                } px-4 py-2 rounded-full`}
-              >
-                <p className="capitalize">{category}</p>
-              </button>
-            ))}
+            {categories.map((category, index) => {
+              return (
+                <button
+                  key={index}
+                  onClick={() => filterItems(category)}
+                  className={`${
+                    selectedCategory === category ? "active" : ""
+                  } px-4 py-2 rounded-full`}
+                >
+                  <p className="capitalize">{category}</p>
+                </button>
+              );
+            })}
           </div>
           {/* Sort Option */}
           <div className="flex justify-end mb-4 rounded-sm">
@@ -118,6 +131,7 @@ const ProductList = () => {
                 <option value={"Z-A"}>Z-A</option>
                 <option value={"low-to-high"}>Low to High</option>
                 <option value={"high-to-low"}>High to Low</option>
+                <option value={"sean"}>🔧วัยรุ่นบางแสน</option>
               </select>
             </div>
           </div>
@@ -129,20 +143,19 @@ const ProductList = () => {
           ))}
         </div>
       </div>
-
       {/* Pagination */}
-      <div className="flex justify-center items-center my-8 flex-wrap gap-2">
+      <div className="flex justify-center items-center my-8 flex-warp gap-2">
         {Array.from({
           length: Math.ceil(filteredItems.length / itemPerPages),
         }).map((_, index) => {
           return (
             <button
               key={index}
-              className={`mx-1 px-3 py-1 rounded-full ${
+              className={`mx-1 px-5 py-2 rounded-full ${
                 currentPage === index + 1 ? "bg-red text-white" : "bg-gray-200"
               }`}
               onClick={() => {
-                setCurrentPage(index + 1);
+                paginate(index + 1);
               }}
             >
               {index + 1}
