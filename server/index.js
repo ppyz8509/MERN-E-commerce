@@ -48,6 +48,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const MONGODB_URI = process.env.MONGODB_URI;
 mongoose.connect(MONGODB_URI);
 
+///grewg
 app.get("/", (req, res) => {
   res.send("<h1>Restful API For Se Shop</h1>");
 });
