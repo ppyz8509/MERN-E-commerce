@@ -5,33 +5,33 @@ import Slider from "react-slick";
 import Card from "../../components/Card";
 
 
-const SampleNextArrow = (props) => {
+const SempleNextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", background: "red" }}
-      onclick={onClick}
+      style={{ ...style, display: "block" /*background: "red"*/ }}
+      onClick={onClick}
     >
       NEXT
     </div>
   );
 };
 
-const SamplePrevArrow = (props) => {
+const SemplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", background: "red" }}
-      onclick={onClick}
+      style={{ ...style, display: "block" /*background: "green"*/ }}
+      onClick={onClick}
     >
       BACK
     </div>
   );
 };
 
-const SpecialProducts = () => {
+const SpecialProduct = () => {
   const [products, setProducts] = useState([]);
   const slider = useRef(null);
   useEffect(() => {
@@ -44,11 +44,13 @@ const SpecialProducts = () => {
   }, []);
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
     initialSlide: 0,
+    autoplay: true, // Enable autoplay
+    autoplaySpeed: 2000, // Set autoplay speed in milliseconds (e.g., 3 seconds)
     responsive: [
       {
         breakpoint: 1024,
@@ -75,15 +77,14 @@ const SpecialProducts = () => {
         },
       },
     ],
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    nextArrow: <SempleNextArrow />,
+    prevArrow: <SemplePrevArrow />,
   };
-
   return (
     <div className="section-container my-20 relative">
       <div className="text-left">
-        <p className="subtitle">Special Item</p>
-        <h2 className="title">Standout Items from Our Product</h2>
+        <p className="subtitle">Special Items</p>
+        <h2 className="title">Standout Item from Our Product</h2>
       </div>
       <div className="md:absolute right-3 top-8 mb-10 md:mr-24">
         <button
@@ -92,14 +93,16 @@ const SpecialProducts = () => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            fill="none"
             viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-7 h-7  p-1"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-7 h-6 p-1"
           >
             <path
-              fillRule="evenodd"
-              d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
-              clipRule="evenodd"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
             />
           </svg>
         </button>
@@ -109,24 +112,22 @@ const SpecialProducts = () => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            fill="none"
             viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-7 h-7 p-1"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-7 h-6 p-1"
           >
             <path
-              fillRule="evenodd"
-              d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
-              clipRule="evenodd"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
             />
           </svg>
         </button>
       </div>
       <div className="slider-container">
-        <Slider
-          ref={slider}
-          {...settings}
-          className="overflow-hidden mt-10 space-x-5 "
-        >
+        <Slider ref={slider} {...settings}>
           {products.map((item, i) => (
             <Card item={item} key={i} />
           ))}
@@ -136,4 +137,4 @@ const SpecialProducts = () => {
   );
 };
 
-export default SpecialProducts;
+export default SpecialProduct;

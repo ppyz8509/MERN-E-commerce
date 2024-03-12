@@ -5,43 +5,39 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [sortOptions, setSortOptions] = useState("default");
+  const [sortOption, setSortOption] = useState("default");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPages, setItemPerPages] = useState(8);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
   const [categories, setCategories] = useState([]);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/product.json");
+        const response = await fetch("http://localhost:5000/products");
         const data = await response.json();
         setProducts(data);
         setFilteredItems(data);
-        setCategories(["all", ...new Set(data.map((item) => item.category))]);
+        setCategories(["all", ...new Set(data.map((item) => item.category))]); //...สลายโครงสร้าง
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
   }, []);
-  const filterItems = (category) => {
-    let filtered;
-    if (category === "bangsean") {
-      filtered = products.filter((item) => item.category === "bangsean");
-    } else {
-      filtered =
-        category === "all"
-          ? products
-          : products.filter((item) => item.category === category);
-    }
 
-    handleSortChange(sortOptions, filtered);
+  const filterItems = (category) => {
+    const filtered =
+      category === "all"
+        ? products
+        : products.filter((item) => item.category === category);
+    //setFilteredItems(filtered);
+    handleSortChange(sortOption, filtered);
     setSelectedCategory(category);
     setCurrentPage(1);
   };
 
   const handleSortChange = (option, products) => {
-    setSortOptions(option);
+    setSortOption(option);
     let sortedItems = [...products];
     switch (option) {
       case "A-Z":
@@ -56,38 +52,35 @@ const ProductList = () => {
       case "high-to-low":
         sortedItems.sort((a, b) => b.price - a.price);
         break;
-      case "bangsean":
-        sortedItems = sortedItems.filter(
-          (item) => item.category === "bangsean"
-        );
-        break;
       default:
-        sortedItems.sort((a, b) => a.name.localeCompare(b.name));
         break;
     }
     setFilteredItems(sortedItems);
     setCurrentPage(1);
   };
 
-  const indexOfLastItem = itemPerPages * currentPage;
-  const indexOfFirstItem = indexOfLastItem - itemPerPages;
-  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem); //index คือดัชณี เป็นตัวชี้ตำแหน่ง
+  //slice ส่ง start และ end ให้ และจะไม่เอา เอเลเม้นท์สุดท้ายที่ส่งไป
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div>
-      {/** Product List Banner */}
+      {/* Product List Banner */}
       <div className="section-container bg-gradient-to-r from-[#FAFAFA] from-0% to-[#FCFCFC] to-100%">
         <div className="py-48 flex flex-col justify-center items-center">
           <div className="text-center space-y-7 px-4">
             <h2 className="md:text-4xl text-4xl font-bold md:leading-snug leading-snug">
-              Unleash your Inner <span className="text-red">Geek</span>: <br />{" "}
-              Shop Our Exclusive Tech-themed Merchandises!
+              Discover Uniq <span className="text-red">Geek</span>:<br /> Shop
+              Our Exclusive Tech-themed Merchandises !
             </h2>
             <p className="text-xl text-[#4A4A4A]">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Blanditiis laborum provident expedita temporibus, perferendis,
-              sunt quo unde ex voluptatem ipsa necessitatibus exercitationem
-              minus amet maiores similique pariatur sapiente nihil velit.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Molestias officia aspernatur, maxime adipisci distinctio atque
+              eveniet sequi harum deserunt omnis quam incidunt, doloribus
+              inventore voluptatem eligendi dolorem! Molestiae, perspiciatis
+              libero.
             </p>
             <button className="btn bg-red px-8 py-3 font-semibold text-white rounded-full">
               Order Now
@@ -96,10 +89,10 @@ const ProductList = () => {
         </div>
       </div>
 
-      {/** Product List Card */}
+      {/* Product List Banner */}
       <div className="section-container">
-        <div className="flex flex-col md:flex-row flex-warp md:justify-between items-center space-y-3 mb-8">
-          {/* filter */}
+        <div className="flex flex-col md:flex-row flex-wrap md:justify-between items-center space-y-3 mb-8 ">
+          {/* Filter */}
           <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap">
             {categories.map((category, index) => {
               return (
@@ -116,42 +109,43 @@ const ProductList = () => {
             })}
           </div>
           {/* Sort Option */}
-          <div className="flex justify-end mb-4 rounded-sm">
-            <div className="bg-black p-2">
+          <div className="flex justify-end md-4 rounded-sm">
+            <div className="bg-red p-2 container mx-auto rounded-lg">
               <select
-                className="bg-black text-white px-2 rounded-sm"
                 id="sort"
+                className="bg-red text-white px-2 rounded-sm  "
                 onChange={(e) =>
                   handleSortChange(e.target.value, filteredItems)
                 }
-                value={sortOptions}
+                value={sortOption}
               >
-                <option value={"default"}>Default</option>
-                <option value={"A-Z"}>A-Z</option>
-                <option value={"Z-A"}>Z-A</option>
-                <option value={"low-to-high"}>Low to High</option>
-                <option value={"high-to-low"}>High to Low</option>
-                <option value={"sean"}>🔧วัยรุ่นบางแสน</option>
+                <option value={"default"}> Default </option>
+                <option value={"A-Z"}> A-Z </option>
+                <option value={"Z-A"}> Z-A </option>
+                <option value={"low-to-high"}> Low to High </option>
+                <option value={"high-to-low"}> High to Low </option>
               </select>
             </div>
           </div>
-        </div>
-        {/* Product Card */}
-        <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-col-1 gap-4">
-          {currentItems.map((item, index) => (
-            <Card key={index} item={item} />
-          ))}
+          {/* Card */}
+          <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 section-container">
+            {currentItems.map((item, index) => (
+              <Card key={index} item={item} />
+              // เรียกใช้ callback(ฟังก์ชั่นที่ไม่มีชื่อ) และ รีเทริน array card ออกมาโดยตรง
+            ))}
+          </div>
         </div>
       </div>
+
       {/* Pagination */}
-      <div className="flex justify-center items-center my-8 flex-warp gap-2">
+      <div className="flex justify-center items-center my-8 flex-wrap gap-2">
         {Array.from({
-          length: Math.ceil(filteredItems.length / itemPerPages),
+          length: Math.ceil(filteredItems.length / itemsPerPage),
         }).map((_, index) => {
           return (
             <button
               key={index}
-              className={`mx-1 px-5 py-2 rounded-full ${
+              className={`mx-1 px-3 py-1 rounded-full ${
                 currentPage === index + 1 ? "bg-red text-white" : "bg-gray-200"
               }`}
               onClick={() => {

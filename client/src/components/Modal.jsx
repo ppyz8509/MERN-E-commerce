@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import  { useContext } from "react";
 import { useForm } from "react-hook-form"
 import { AuthContext } from "../context/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 
 const Modal = ({ name }) => {
-  const { login, signUpWithGoogle } = useContext(AuthContext);
-  const navigate = useNavigate(); // เพิ่ม useNavigate
+  const { login, signUpWhiteGoogle } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -15,32 +17,32 @@ const Modal = ({ name }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     login(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        // console.log(user);
-        alert("Login Successful");
+        //console.log(user);
         document.getElementById(name).close();
-        navigate("/"); // เปลี่ยนเส้นทางไปหน้าแรก
+          navigate(from, { replace: true });
+        alert("Login Successful");
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const googlesignUp = () => {
-    signUpWithGoogle()
+  const googleSignUp = () => {
+    signUpWhiteGoogle()
       .then((result) => {
         const user = result.user;
         console.log(user);
-        alert("google sign up Successfully");
+        alert("Google SigUp Successfully");
         document.getElementById("login").close();
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
   return (
     <div>
       <dialog
@@ -50,6 +52,7 @@ const Modal = ({ name }) => {
         <div className="modal-box">
           <div className="modal-action mt-0 flex flex-col justify-center">
             <h3 className="font-bold text-lg text-center ">Please Login</h3>
+
             <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
               <div className="form-control">
                 <label className="label">
@@ -59,7 +62,7 @@ const Modal = ({ name }) => {
                   type="email"
                   placeholder="email"
                   className="input input-bordered"
-                  required 
+                  required
                   {...register("email")}
                 />
               </div>
@@ -71,7 +74,7 @@ const Modal = ({ name }) => {
                   type="password"
                   placeholder="password"
                   className="input input-bordered"
-                  required 
+                  required
                   {...register("password")}
                 />
                 <label className="label">
@@ -89,7 +92,7 @@ const Modal = ({ name }) => {
               </div>
               <p className="text-center my-2">
                 Don't have an account?{" "}
-                <Link to={"/signup"} className="underline text-red ml-1">
+                <Link to={"/singup"} className="underline text-red ml-1">
                   Sign Up Now
                 </Link>
               </p>
@@ -100,35 +103,31 @@ const Modal = ({ name }) => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
+                  viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="w-5 h-5 hover:text-red"
+                  className="w-6 h-6"
                 >
                   <path
                     fillRule="evenodd"
-                    d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94 8.28 7.22Z"
+                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
                     clipRule="evenodd"
                   />
                 </svg>
               </button>
             </form>
-            <div className="text-center space-x-3 mb-5">
-            <button
-                htmlFor={name}
-                className="btn btn-sm btn-circle hover:bg-red hover:text-white "
-                onClick={() => document.getElementById(name).close()}
-              ><FaGithub /></button>
-            <button
-                htmlFor={name}
-                className="btn btn-sm btn-circle hover:bg-red hover:text-white "
-                onClick={googlesignUp}
-              > <FaGoogle /></button>
-             <button
-                htmlFor={name}
-                className="btn btn-sm btn-circle hover:bg-red hover:text-white "
-                onClick={() => document.getElementById(name).close()}
-              ><FaFacebook /></button>
-
+            <div className="text-center space-x-3 md-3">
+              <button
+                className="btn btn-ghost btn-circle hover:bg-red hover:text-white"
+                onClick={googleSignUp}
+              >
+                <FaGoogle />
+              </button>
+              <button className="btn btn-ghost btn-circle hover:bg-red hover:text-white">
+                <FaFacebook />
+              </button>
+              <button className="btn btn-ghost btn-circle hover:bg-red hover:text-white">
+                <FaGithub />
+              </button>
             </div>
           </div>
         </div>

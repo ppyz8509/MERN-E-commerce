@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { useContext ,createContext, useEffect, useState } from "react";
 export const AuthContext = createContext();
 import app from "../firebase/firebase.config";
 import {
@@ -9,60 +9,65 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut,
-  ///UpdateProfile,
+  updateProfile,
 } from "firebase/auth";
+
+
+
 const AuthProvider = ({ children }) => {
   // Initialize Firebase Authentication and get a reference to the service
   const auth = getAuth(app);
   const [user, setUser] = useState(null);
-
+  const [cartTrigger, setCartTrigger] = useState(0);
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  const updateUserProfile = ({ name ,photoURL}) => {
-    return UpdateProfile(auth.currentUser, {
+
+  const updateUserProfile = ({ name, photoURL }) => {
+    return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photoURL,
-    })
-  }
+    });
+  };
+
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
- 
-  const signUpWithGoogle = () =>{
-    const provider = new GoogleAuthProvider()
-    return signInWithPopup(auth, provider)
-  }
 
-  const logout = () =>{
+  const logout = () => {
     return signOut(auth);
-  }
+  };
+
+  const signUpWhiteGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
 
   const authInfo = {
     user,
     setUser,
     createUser,
-    updateUserProfile,
     login,
     logout,
-    signUpWithGoogle
+    signUpWhiteGoogle,
+    updateUserProfile,
+    setCartTrigger,
+    cartTrigger,
   };
 
+  //check if user is logged in
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        setUser(currentUser);
+      }
+    });
+    return () => {
+      return unsubscribe();
+    };
+  }, [auth]);
 
-
-//check if user is logged in
-  useEffect(()=>{
-   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-    if(currentUser) {
-    setUser(currentUser);
-    }
-    return() => {
-      return unsubscribe()
-    }
-   })
-
-  },[auth])
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

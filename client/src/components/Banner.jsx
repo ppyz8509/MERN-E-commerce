@@ -16,37 +16,34 @@ const Banner = () => {
               <div className="space-y-1">
                 <h5>Game Pad</h5>
                 <div className="rating rating-sm">
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="rating-hidden"
-                  />
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="mask mask-star-2"
-                  />
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="mask mask-star-2"
-                    checked
-                  />
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="mask mask-star-2"
-                  />
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="mask mask-star-2"
-                  />
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="mask mask-star-2"
-                  />
+                  <div className="rating">
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                      checked
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                  </div>
                 </div>
                 <p className="text-red">499.00฿</p>
               </div>
@@ -60,60 +57,56 @@ const Banner = () => {
               <div className="space-y-1">
                 <h5>Headphone</h5>
                 <div className="rating rating-sm">
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="rating-hidden"
-                  />
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="mask mask-star-2"
-                  />
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="mask mask-star-2"
-                    checked
-                  />
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="mask mask-star-2"
-                  />
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="mask mask-star-2"
-                  />
-                  <input
-                    type="radio"
-                    name="rating-9"
-                    className="mask mask-star-2"
-                  />
+                  <div className="rating">
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                      checked
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                  </div>
                 </div>
                 <p className="text-red">49.00฿</p>
               </div>
             </div>
           </div>
         </div>
-
         <div className="md:w-1/2 space-y-7 px-4">
           <h2 className="md:text-4xl text-4xl font-bold md:leading-snug leading-snug">
-            Discover Uniq <span className="text-red"> Software Swag</span> for
-            Every Coding Enthusiast!
+            Discover Uniq <span className="text-red">Sofrware</span> Swag for
+            Every Coding Enthusiat!
           </h2>
           <p className="text-xl text-[#4A4A4A]">
-            Our mission: To merge fashion with functionality in the world of
-            Software Engineering.
+            Our mission: To merge fashion with functionakity in the worl of
+            Software Engineering
           </p>
-          <button className="btn bg-red px-8 py-3 font-semibold text-white rounded-badge">
+          <button className="btn bg-red px-8 py-3 font-semibold text-white rounded-full">
             Order Now
           </button>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default Banner;
+export default Banner

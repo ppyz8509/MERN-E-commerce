@@ -1,19 +1,53 @@
-import React, { useContext, } from "react";
+import React, { useContext, useEffect ,useState} from "react";
 import Modal from "./Modal";
 import { AuthContext } from "../context/AuthProvider";
 import Profile from "./Profile";
-const Navbar = () => {
-  const {user} = useContext(AuthContext)
-  console.log(user)
+import Cart from "./Cart";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+
+const NavBar = () => {
+  const { user, setUser, createrUser, cartTrigger } = useContext(AuthContext);
+  console.log(user);
+  console.log(cartTrigger);
+  const navigate = useNavigate();
+  const [length, setLength] = useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/carts/${user.email}`
+      );
+      if (response.status !== 200) {
+        console.log(response.data);
+      } else {
+        setLength(response.data.length);
+      }
+    };
+    fetchData();
+  }, [cartTrigger]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/carts/${user.email}`
+      );
+      if (response.status !== 200) {
+        console.log(response.data);
+      } else {
+        setLength(response.data.length);
+      }
+    };
+    fetchData();
+  }, [cartTrigger]);
   const navItems = (
     <>
-      <li className="mb-2">
-        <a className="text-neutral">Home</a>
+      <li>
+        <a>Home</a>
       </li>
-      <li tabIndex={0} className="mb-4">
+      <li tabIndex={0}>
         <details>
-          <summary className="text-neutral">Category</summary>
-          <ul className="p-2 text-neutral">
+          <summary>Category</summary>
+          <ul className="p-2">
             <li>
               <a>All</a>
             </li>
@@ -24,7 +58,7 @@ const Navbar = () => {
               <a>Accessories</a>
             </li>
             <li>
-              <a>Gadget</a>
+              <a>Gedgets</a>
             </li>
             <li>
               <a>Swag</a>
@@ -32,12 +66,12 @@ const Navbar = () => {
           </ul>
         </details>
       </li>
-      <li tabIndex={0} className="mb-4">
+      <li tabIndex={0}>
         <details>
-          <summary className="text-neutral">Service</summary>
-          <ul className="p-2 text-neutral">
+          <summary>Services</summary>
+          <ul className="p-2">
             <li>
-              <a>Order Online</a>
+              <a>Order online</a>
             </li>
             <li>
               <a>Order Tracking</a>
@@ -46,15 +80,14 @@ const Navbar = () => {
         </details>
       </li>
       <li>
-        <a className="text-neutral">Promotion</a>
+        <a>Promotion</a>
       </li>
     </>
   );
-
   return (
-    <header className="max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out">
-      <div>
-        <div className="navbar bg-base-100 text-neutral-content rounded-b-lg shadow-xl">
+    <header className="max-w-screen-1xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out navbar z-50">
+      <div className="navbar xl:px">
+        <div className="navbar bg-base-100 rounded-md">
           <div className="navbar-start">
             <div className="dropdown">
               <div
@@ -84,17 +117,17 @@ const Navbar = () => {
                 {navItems}
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl text-black" href="/">
-              {" "}
+            <a className="btn btn-ghost text-xl">
               <img src="/logo.png" alt="" className="h-12 pr-1 mx-auto" />
-              SE Souvenir Shop
+              <span className="text-red">SE Souvenir Shop</span>
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1 ">{navItems}</ul>
+            <ul className="menu menu-horizontal px-1">{navItems}</ul>
           </div>
+
           <div className="navbar-end">
-            <button className="btn btn-ghost btn-circle hidden lg:flex mr-3 items-center justify-center text-black">
+            <button className="btn btn-ghost btn-circle hidden lg:flex mr-3 items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -113,9 +146,9 @@ const Navbar = () => {
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost btn-circle hidden lg:flex text-black"
+              className="btn btn-ghost btn-circle hidden lg:flex mr-3 items-center justify-center"
             >
-              <div className="indicator">
+              <div className="indicator" onClick={() => navigate("/Cart")}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
@@ -130,28 +163,32 @@ const Navbar = () => {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item ">8</span>
+                <span className="badge badge-sm indicator-item">{length}</span>
               </div>
             </div>
-            {user ? (<><Profile user={user}/></>):( 
-            <button className="btn bg-red rounded-full px-5 text-white flex items-center gap-2  "
-            onClick={() => document.getElementById("login").showModal()}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
+            {user ? (
+              <>
+                <Profile user={user} />
+              </>
+            ) : (
+              <button
+                className="btn bg-red rounded-full px-5 text-white flex items-center gap-2  "
+                onClick={() => document.getElementById("login").showModal()}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                />
-              </svg>
-              Login
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Login
+              </button>
             )}
           </div>
           <Modal name="login" />
@@ -161,4 +198,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

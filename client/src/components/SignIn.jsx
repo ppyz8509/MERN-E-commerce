@@ -1,11 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from "../context/AuthProvider";
 
-const Signin = () => {
-  const { login, signUpWithGoogle } = useContext(AuthContext);
+const SignIn = ( name ) => {
+  const { login, signUpWhiteGoogle } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || "/";
@@ -17,20 +17,21 @@ const Signin = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     login(data.email, data.password)
       .then((result) => {
         const user = result.user;
         //console.log(user);
         alert("Login Successful");
         navigate(from, { replace: true });
+        
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
   const googleSignUp = () => {
-    signUpWithGoogle()
+    signUpWhiteGoogle()
       .then((result) => {
         const user = result.user;
         console.log(user);
@@ -41,12 +42,10 @@ const Signin = () => {
         console.log(error);
       });
   };
+
   return (
     <div>
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
-
-   
-        <div className="max-w-md bg-white shadow-w-full mx-auto flex items-center justify-center my-20">
+        <div className="max-w-md bg-white shadow-2xl w-full mx-auto flex items-center justify-center my-20">
           <div className="modal-action mt-0 flex flex-col justify-center">
             <h3 className="font-bold text-lg text-center ">Please Login</h3>
 
@@ -80,7 +79,7 @@ const Signin = () => {
                   </a>
                 </label>
               </div>
-              <div className="form-control mt-6 ">
+              <div className="form-control mt-6">
                 <input
                   type="submit"
                   value="Login"
@@ -89,7 +88,7 @@ const Signin = () => {
               </div>
               <p className="text-center my-2">
                 Don't have an account?{" "}
-                <Link to={"/signup"} className="underline text-red ml-1">
+                <Link to={"/singup"} className="underline text-red ml-1">
                   Sign Up Now
                 </Link>
               </p>
@@ -102,7 +101,7 @@ const Signin = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="w-6 h-6 text-red "
+                  className="w-6 h-6"
                 >
                   <path
                     fillRule="evenodd"
@@ -112,7 +111,7 @@ const Signin = () => {
                 </svg>
               </button>
             </form>
-            <div className="text-center space-x-3 mb-5">
+            <div className="text-center space-x-3 md-3">
               <button
                 className="btn btn-ghost btn-circle hover:bg-red hover:text-white"
                 onClick={googleSignUp}
@@ -132,4 +131,4 @@ const Signin = () => {
   );
 };
 
-export default Signin
+export default SignIn;
