@@ -5,40 +5,35 @@ import Profile from "./Profile";
 import Cart from "./Cart";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import useCart from "../hook/useCart";
+
+
+
+
 
 
 const NavBar = () => {
   const { user, setUser, createrUser, cartTrigger } = useContext(AuthContext);
-  console.log(user);
-  console.log(cartTrigger);
+  const [cart, refresh] = useCart();
+  console.log(cart);
   const navigate = useNavigate();
-  const [length, setLength] = useState(0);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(
-        `http://localhost:5000/carts/${user.email}`
-      );
-      if (response.status !== 200) {
-        console.log(response.data);
-      } else {
-        setLength(response.data.length);
-      }
-    };
-    fetchData();
-  }, [cartTrigger]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(
-        `http://localhost:5000/carts/${user.email}`
-      );
-      if (response.status !== 200) {
-        console.log(response.data);
-      } else {
-        setLength(response.data.length);
-      }
-    };
-    fetchData();
-  }, [cartTrigger]);
+  // console.log(cartTrigger);
+  
+  // const [length, setLength] = useState(0);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await axios.get(
+  //       `http://localhost:5000/carts/${user.email}`
+  //     );
+  //     if (response.status !== 200) {
+  //       console.log(response.data);
+  //     } else {
+  //       setLength(response.data.length);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [cartTrigger]);
+
   const navItems = (
     <>
       <li>
@@ -49,7 +44,7 @@ const NavBar = () => {
           <summary>Category</summary>
           <ul className="p-2">
             <li>
-              <a>All</a>
+              <a onClick={()=> navigate("/shop")}>All</a>
             </li>
             <li>
               <a>Clothing</a>
@@ -163,7 +158,7 @@ const NavBar = () => {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item">{length}</span>
+                <span className="badge badge-sm indicator-item">{cart.length || 0}</span>
               </div>
             </div>
             {user ? (

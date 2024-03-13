@@ -3,11 +3,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal  from "sweetalert2";
 import { AuthContext } from "../context/AuthProvider";
 import axios from "axios"
+import useCart from "../hook/useCart";
+import Cart from './Cart';
+
 
 
 const Card = ({ item }) => {
   const { _id, name, image, price, description } = item;
   const { user, cartTrigger, setCartTrigger } = useContext(AuthContext);
+  const [cart, refetch] = useCart();
   const navigate = useNavigate();
   const location = useLocation();
   const [isHeartFilled, setIsHeartFilled] = useState(false);
@@ -25,16 +29,31 @@ const Card = ({ item }) => {
         price: item.price,
         quantity: 1,
       };
-      axios.post("http://localhost:5000/carts", cartItem).then(() => {
-        Swal.fire({
-          title: "Product addes on the cart",
-          position: "center",
-          icon: "success",
-          showConfirmButton: false,
-          timer: "2000",
+      axios
+        .post("http://localhost:5000/carts", cartItem)
+        .then((response) => {
+          if (response.status === 200 || response.status === 201) {
+            refetch();
+            Swal.fire({
+              title: "Product addes on the cart",
+              position: "center",
+              icon: "success",
+              showConfirmButton: false,
+              timer: "2000",
+            });
+          }
+          // setCartTrigger(cartTrigger + 1);
+        })
+        .catch((error) => {
+          const errorMessage = error.response.data.message;
+          Swal.fire({
+            title: `${errorMessage}`,
+            position: "center",
+            icon: "warning",
+            showConfirmButton: false,
+            timer: "2000",
+          });
         });
-        setCartTrigger(cartTrigger + 1);
-      });
     } else {
       Swal.fire({
         title: "Plaease login to add an item to cart!",

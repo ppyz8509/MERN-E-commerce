@@ -9,7 +9,7 @@ const ProductList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [categories, setCategories] = useState([]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
