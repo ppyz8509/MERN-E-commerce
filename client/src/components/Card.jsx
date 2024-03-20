@@ -1,13 +1,9 @@
-import React, { useState ,useContext} from "react";
+import React, { useState, useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Swal  from "sweetalert2";
+import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthProvider";
-import axios from "axios"
+import axios from "axios";
 import useCart from "../hook/useCart";
-import Cart from './Cart';
-
-
-
 const Card = ({ item }) => {
   const { _id, name, image, price, description } = item;
   const { user, cartTrigger, setCartTrigger } = useContext(AuthContext);
@@ -103,19 +99,21 @@ const Card = ({ item }) => {
           <h2 className="card-title">{name}</h2>
         </Link>
         <p>{description}</p>
-        <div className="card-action justify-between items-center mt-2">
-          <h5 className="font-semibold">
-            {price} <span className="text-sm text-red"> ฿ </span>
-          </h5>
-          <button
-            className="btn bg-red text-white"
-            onClick={() => {
-              handleAddtoCart(item);
-            }}
-          >
-            Add to cart
-          </button>
-        </div>
+        <div className="card-action flex justify-between items-center mt-2">
+  <h5 className="font-semibold flex items-center">
+    <span className="text-sm text-red mr-1"> ฿ </span>
+    {price}
+  </h5>
+  <button
+    className="btn bg-red text-white"
+    onClick={() => {
+      handleAddtoCart(item);
+    }}
+  >
+    Add to cart
+  </button>
+</div>
+
       </div>
     </div>
   );

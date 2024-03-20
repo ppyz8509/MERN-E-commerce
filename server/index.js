@@ -6,6 +6,8 @@ const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const productRouter = require("./routes/product.router");
 const cartRouter = require("./routes/cart.router");
+const userRouter = require("./routes/user.router")
+const jwt = require("jsonwebtoken")
 const swaggerDefinition = {
   openapi: "3.1.0",
   info: {
@@ -23,9 +25,9 @@ const swaggerDefinition = {
       url: "https://github.com",
     },
     contact: {
-      name: "KITTIPONG",
+      name: "Naphat",
       url: "https://github.com",
-      email: "Kittipong@hotmail.com",
+      email: "peenp1234@gmail.com",
     },
   },
   externalDocs: {
@@ -73,7 +75,16 @@ app.get("/", (req, res) => {
 //Add Router
 app.use("/products", productRouter);
 app.use("/carts", cartRouter);
+app.use("/user", userRouter)
 
+
+app.post("/jwt" , async (req, res) => {
+  const user = req.body;
+  const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET,
+    {expiresIn:"1h",
+  });
+  res.send({ token });
+});
 //RunServer
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {

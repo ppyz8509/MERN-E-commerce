@@ -1,17 +1,19 @@
 import React from "react";
-import Banner from "../../components/Banner";
-import Category from "./Categories";
-import OutServices from "./OutServices";
-import SpecialProducts from "./SpecialProducts";
+import Banner from "../../Components/Banner";
+import Categories from "./Categories";
+import OurServices from "./OurServices";
+import SpecialProduct from "./SpecialProduct";
 import Testimonials from "./Testimonials";
+import Footer from "../../Components/Footer";
+
 const Home = () => {
   return (
     <div>
       <Banner />
-      <Category />
-      <SpecialProducts />
+      <Categories />
+      <SpecialProduct />
       <Testimonials />
-      <OutServices />
+      <OurServices />
     </div>
   );
 };

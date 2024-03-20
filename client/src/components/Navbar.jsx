@@ -1,16 +1,11 @@
-import React, { useContext, useEffect ,useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Modal from "./Modal";
 import { AuthContext } from "../context/AuthProvider";
 import Profile from "./Profile";
-import Cart from "./Cart";
+import Cart from "../Pages/Shop/Cart";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useCart from "../hook/useCart";
-
-
-
-
-
 
 const NavBar = () => {
   const { user, setUser, createrUser, cartTrigger } = useContext(AuthContext);
@@ -37,14 +32,14 @@ const NavBar = () => {
   const navItems = (
     <>
       <li>
-        <a>Home</a>
+        <a onClick={()=>navigate("/")}>Home</a>
       </li>
       <li tabIndex={0}>
         <details>
           <summary>Category</summary>
           <ul className="p-2">
             <li>
-              <a onClick={()=> navigate("/shop")}>All</a>
+              <a>All</a>
             </li>
             <li>
               <a>Clothing</a>
@@ -57,6 +52,9 @@ const NavBar = () => {
             </li>
             <li>
               <a>Swag</a>
+            </li>
+            <li>
+              <a onClick={()=> navigate("/shop")}>Shop</a>
             </li>
           </ul>
         </details>

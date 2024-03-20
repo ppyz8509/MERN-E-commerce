@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
-import { onIdTokenChanged } from 'firebase/auth';
+import React, { useContext } from "react";
+import { AuthContext } from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { onIdTokenChanged } from "firebase/auth";
 
 const Profile = ({ user }) => {
   const { logout } = useContext(AuthContext);

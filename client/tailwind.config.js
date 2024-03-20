@@ -8,11 +8,15 @@ export default {
     extend: {
       colors:{
         red:"#830109",
-        secondary:"#555555",
-        primaryBG: "#77e7e7e"
+        secondary:"#555",
+        primaryBG:"#FCFCFC",
       }
     },
   },
   plugins: [require("daisyui")],
-
+  daisyui:{
+    themes:["light"]
+  }
 }
+
+

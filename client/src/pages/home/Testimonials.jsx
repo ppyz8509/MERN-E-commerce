@@ -3,18 +3,18 @@ import React from "react";
 const Testimonials = () => {
   return (
     <div className="section-container">
-      <div className="flex flex-col md:flex-row item-center justify-between gap-12">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-12">
         <div className="md:w-1/2">
           <img src="/images/home/testimonials/testimonials.png" alt="" />
         </div>
         <div className="md:w-1/2">
           <div className="text-left md:w-4/5">
             <p className="subtitle">Testimonials</p>
-            <h2 className="title">What Our Customer Say About Us</h2>
+            <h2 className="title">What Our Customer Say about Us</h2>
             <blockquote className="my-5 text-secondary leading-[30px]">
               "As a software developer, I'm always on the lookout for unique
-              accessories to express my love for coding. The Keyboard Key
-              Keychain is not only stylish but also durable. Will definitely be
+              accessories to express my love for codeing. The keyboard ky
+              keyboard is not only stylish bit also durable. will definitely be
               purchasing more items!"
             </blockquote>
             <div className="flex items-center gap-4 flex-wrap">
@@ -42,7 +42,7 @@ const Testimonials = () => {
               </div>
               <div className="space-y-1">
                 <h5 className="text-lg font-semibold">Customer Feedback</h5>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"

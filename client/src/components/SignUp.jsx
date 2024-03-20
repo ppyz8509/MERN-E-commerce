@@ -1,10 +1,9 @@
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthProvider'
-import { useForm } from 'react-hook-form'
+import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Modal from './Modal'
+import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
-
+import { AuthContext } from "../context/AuthProvider";
+import Modal from "./Modal";
 
 const SignUp = () => {
   const { createUser } = useContext(AuthContext);
