@@ -3,6 +3,7 @@ const router = express.Router();
 const UserModel = require("../models/User.model");
 const verifyToken = require("../middlewares/verifyToken")
 const verifyAdmin = require("../middlewares/verifyAdmin")
+
 router.get("/", async (req, res) => {
   try {
     const users = await UserModel.find();
@@ -36,7 +37,7 @@ router.post("/", async (req, res) => {
     }
     if (!req.body.photoURL) {
       req.body.photoURL =
-        "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg";
+        "https://th.bing.com/th/id/R.190ec45e85a736714a81a796bd48a8ad?rik=UuYYrZ5Q1RLm9A&pid=ImgRaw&r=0";
     }
     const newUser = new UserModel(user);
     await newUser.save();
@@ -75,7 +76,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 //Check if a user is an admin
-router.get("/admin/:email",verifyToken, async (req, res) => {
+router.get("/admin/:email", verifyToken, async (req, res) => {
   try {
     const { email } = req.params;
     const user = await UserModel.findOne({ email });
@@ -90,7 +91,7 @@ router.get("/admin/:email",verifyToken, async (req, res) => {
 });
 
 //Change Admin to User Role
-router.patch("/user/:id", verifyToken,verifyAdmin,async (req, res) => {
+router.patch("/user/:id", verifyToken, verifyAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     const updatedUser = await UserModel.findByIdAndUpdate(
@@ -113,7 +114,7 @@ router.patch("/user/:id", verifyToken,verifyAdmin,async (req, res) => {
 });
 
 //Change User to Admin Role
-router.patch("/admin/:id",verifyToken ,verifyAdmin,async (req, res) => {
+router.patch("/admin/:id", verifyToken, verifyAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     const updatedUser = await UserModel.findByIdAndUpdate(

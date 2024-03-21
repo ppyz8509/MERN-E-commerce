@@ -2,13 +2,16 @@ import * as React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Pages/home/Home";
-import ProductList from "../Pages/Shop/ProductList";
+import ProductList from "../pages/Shop/ProductList";
 import SignUp from "../Components/SignUp";
 import SignIn from "../Components/SignIn";
 import UpdatePofile from "../Pages/dashboard/updateProfile";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
 import Cart from "../Pages/Shop/Cart";
-import Dashboard from "../Layout/Dashboard";
+import DashboardLayout from "../layout/DashboardLayout";
+import Dashboard from "../pages/dashboard/admin/Dashboard"
+import User from "../pages/dashboard/admin/User";
+ 
 
 const router = createBrowserRouter([
   {
@@ -35,11 +38,14 @@ const router = createBrowserRouter([
         path: "/update-profile",
         element: <UpdatePofile />,
       },
-      {
-        path: "/dashboard",
-        element: <Dashboard/>,
-      },
     ],
+  },
+  {
+    path: "dashboard",
+    element: <DashboardLayout />,
+    children: [{ path: "users", element: <User /> },
+  {path:"",
+element:<Dashboard/>}],
   },
   {
     path: "/singup",

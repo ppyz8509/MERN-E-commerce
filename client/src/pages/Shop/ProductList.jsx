@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Card from "../../Components/Card";
+import Card from "../../components/Card";
 import useAxiosPublic from "../../hook/useAxiosPublic";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -9,12 +9,14 @@ const ProductList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [categories, setCategories] = useState([]);
-const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-       /// const response = await fetch("http://localhost:5000/products");
-       const response = await axiosPublic.get("/products")
+        //const response = await fetch("http://localhost:5000/products");
+        //const data = await response.json();
+        const response = await axiosPublic.get("/products");
         const data = await response.data;
         setProducts(data);
         setFilteredItems(data);

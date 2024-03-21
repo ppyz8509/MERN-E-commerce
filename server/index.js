@@ -75,7 +75,7 @@ app.get("/", (req, res) => {
 //Add Router
 app.use("/products", productRouter);
 app.use("/carts", cartRouter);
-app.use("/user", userRouter)
+app.use("/users", userRouter)
 
 
 app.post("/jwt" , async (req, res) => {

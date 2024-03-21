@@ -4,7 +4,10 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthProvider";
 import axios from "axios";
 import useCart from "../hook/useCart";
+import useAxiosPublic from "../hook/useAxiosPublic";
+
 const Card = ({ item }) => {
+  const axiosPublic = useAxiosPublic();
   const { _id, name, image, price, description } = item;
   const { user, cartTrigger, setCartTrigger } = useContext(AuthContext);
   const [cart, refetch] = useCart();
@@ -25,8 +28,8 @@ const Card = ({ item }) => {
         price: item.price,
         quantity: 1,
       };
-      axios
-        .post("http://localhost:5000/carts", cartItem)
+      axiosPublic
+        .post("/carts", cartItem)
         .then((response) => {
           if (response.status === 200 || response.status === 201) {
             refetch();
