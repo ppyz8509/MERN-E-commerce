@@ -3,15 +3,15 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Pages/home/Home";
 import ProductList from "../pages/Shop/ProductList";
-import SignUp from "../Components/SignUp";
-import SignIn from "../Components/SignIn";
+import SignUp from "../components/SignUp";
+import SignIn from "../components/SignIn";
 import UpdatePofile from "../Pages/dashboard/updateProfile";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
 import Cart from "../Pages/Shop/Cart";
 import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/dashboard/admin/Dashboard"
 import User from "../pages/dashboard/admin/User";
- 
+
 
 const router = createBrowserRouter([
   {
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element:  <DashboardLayout />,
     children: [{ path: "users", element: <User /> },
   {path:"",
 element:<Dashboard/>}],

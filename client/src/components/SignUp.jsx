@@ -4,11 +4,16 @@ import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from "../context/AuthProvider";
 import Modal from "./Modal";
+import useAuth from "../hook/useAuth";
+import axios from "axios";
+import useAxiosPublic from "../hook/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile, signUpWhiteGoogle } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic()
   const from = location?.state?.from?.pathname || "/";
   const {
     register,
@@ -16,14 +21,56 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     console.log(data);
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
-        alert("Account creted Successfilly");
+        updateUserProfile(data.name, data.photoURL).then(() => {
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+          axiosPublic.post("/users", userInfo).then((response) => {
+            console.log(response);
+            Swal.fire({
+              title: "Account created successfully",
+              icon: "success",
+              timer: 1500,
+            });
+          });
+        });
         navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const googleSignUp = () => {
+    signUpWhiteGoogle()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        const userInfo = {
+          name: result.user?.displayName,
+          email: result.email,
+          photoURL: result.user?.photoURL,
+        };
+        axiosPublic.post("/users", userInfo).then((response) => {
+          //console.log(response);
+          Swal.fire({
+            title: "Google sing Up Successfully",
+            icon: "success",
+            timer: 1500,
+          });
+        });
+        //alert("Account creted Successfilly");
+        navigate(from, { replace: true });
+        //alert("Google SigUp Successfully");
+        //document.getElementById("login").close();
       })
       .catch((error) => {
         console.log(error);
@@ -31,29 +78,43 @@ const SignUp = () => {
   };
   return (
     <div className="section-container flex items-center justify-center my-20">
-      <div className="modal-action mt-0 flex flex-col justify-center">
-        <h3 className="font-bold text-lg text-center ">Create An Account</h3>
+      <div className="modal-action mt-0 flex flex-col justify-center border border-gray-300 rounded-md p-6">
+        <h3 className="font-bold text-lg text-center mb-4">Create An Account</h3>
 
         <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Name</span>
+            </label>
+            <input
+              type="name"
+              placeholder="Name"
+              className="input input-bordered"
+              required
+              {...register("name")}
+            />
+          </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
             </label>
             <input
               type="email"
-              placeholder="email"
+              placeholder="Email"
               className="input input-bordered"
               required
               {...register("email")}
             />
           </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text">Password</span>
             </label>
             <input
               type="password"
-              placeholder="password"
+              placeholder="Password"
               className="input input-bordered"
               required
               {...register("password")}
@@ -64,15 +125,17 @@ const SignUp = () => {
               </a>
             </label>
           </div>
+
           <div className="form-control mt-6">
             <input
               type="submit"
-              value="Sing Up"
-              className="btn bg-red text-white "
+              value="Sign Up"
+              className="btn bg-red text-white"
             />
           </div>
+
           <p className="text-center my-2">
-            Have have account?{" "}
+            Have an account?{" "}
             <Link
               onClick={() => document.getElementById("login").showModal()}
               className="underline text-red ml-1"
@@ -80,10 +143,11 @@ const SignUp = () => {
               Login
             </Link>
           </p>
+
           <button
-            htmlFor={name}
+            htmlFor="login"
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-            onClick={() => document.getElementById(name).close()}
+            onClick={() => document.getElementById("login").close()}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -99,8 +163,12 @@ const SignUp = () => {
             </svg>
           </button>
         </form>
+
         <div className="text-center space-x-3 md-3">
-          <button className="btn btn-ghost btn-circle hover:bg-red">
+          <button
+            className="btn btn-ghost btn-circle hover:bg-red hover:text-white"
+            onClick={googleSignUp}
+          >
             <FaGoogle />
           </button>
           <button className="btn btn-ghost btn-circle hover:bg-red">

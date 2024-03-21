@@ -3,10 +3,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from "../context/AuthProvider";
+import useAuth from "../hook/useAuth";
+import useAxiosPublic from "../hook/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const SignIn = ( name ) => {
-  const { login, signUpWhiteGoogle } = useContext(AuthContext);
+  const { login, signUpWhiteGoogle } = useAuth()
   const location = useLocation();
+  const axiosPublic = useAxiosPublic()
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || "/";
   const {
@@ -26,16 +30,35 @@ const SignIn = ( name ) => {
         
       })
       .catch((error) => {
-        console.log(error);
+        document.getElementById(nameModal).close();
+        Swal.fire({
+          title: "Can not sign in please try again",
+          icon: "error",
+        });
       });
   };
+
 
   const googleSignUp = () => {
     signUpWhiteGoogle()
       .then((result) => {
         const user = result.user;
-        console.log(user);
-        alert("Google SigUp Successfully");
+        const userInfo = {
+          name: result.user?.displayName,
+          email: result.email,
+          photoURL: result.user?.photoURL,
+        };
+        axiosPublic.post("/users", userInfo).then((response) => {
+          //console.log(response);
+          Swal.fire({
+            title: "Google sing Up Successfully",
+            icon: "success",
+            timer: 1500,
+          });
+        });
+        //alert("Account creted Successfilly");
+        navigate(from, { replace: true });
+        //alert("Google SigUp Successfully");
         document.getElementById("login").close();
       })
       .catch((error) => {
